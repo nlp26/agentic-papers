@@ -1,0 +1,116 @@
+{
+  "tasks": [
+    {
+      "id": "task_01",
+      "task": "What is the capital of Australia?",
+      "gold": "Canberra is the capital of Australia, chosen as a compromise between Sydney and Melbourne.",
+      "candidates": {
+        "strong": "Canberra. It was chosen as a compromise between Sydney and Melbourne, because the two larger cities each wanted to be the capital.",
+        "weak":   "Sydney is the capital."
+      }
+    },
+    {
+      "id": "task_02",
+      "task": "Briefly explain what photosynthesis does for a plant.",
+      "gold": "Photosynthesis converts sunlight, water, and carbon dioxide into glucose and oxygen, giving the plant chemical energy to grow.",
+      "candidates": {
+        "strong": "It turns sunlight, water, and CO2 into glucose and oxygen, since the plant uses that glucose as its chemical energy to grow.",
+        "weak":   "Plants eat sunlight."
+      }
+    },
+    {
+      "id": "task_03",
+      "task": "Who wrote the novel '1984'?",
+      "gold": "George Orwell wrote the novel 1984, published in 1949.",
+      "candidates": {
+        "strong": "George Orwell, published in 1949.",
+        "weak":   "It was written by Aldous Huxley."
+      }
+    },
+    {
+      "id": "task_04",
+      "task": "Name a key advantage of vector databases over relational databases for semantic search.",
+      "gold": "Vector databases index high-dimensional embeddings and use approximate nearest neighbor search, so they retrieve by semantic similarity rather than exact match.",
+      "candidates": {
+        "strong": "They index embeddings with approximate nearest neighbor search, so they retrieve by semantic similarity instead of exact match.",
+        "weak":   "They are faster."
+      }
+    },
+    {
+      "id": "task_05",
+      "task": "What is the difference between supervised and unsupervised learning?",
+      "gold": "Supervised learning trains on labeled examples to predict known targets, while unsupervised learning finds structure in unlabeled data, such as clusters or low-dimensional representations.",
+      "candidates": {
+        "strong": "Supervised learning uses labeled data to predict known targets, because the model is told the right answer in training. Unsupervised learning finds structure in unlabeled data, such as clusters.",
+        "weak":   "One has labels, the other does not."
+      }
+    },
+    {
+      "id": "task_06",
+      "task": "What does the Python 'with' statement do?",
+      "gold": "The with statement opens a context manager that runs setup code on entry and cleanup code on exit, guaranteeing the cleanup runs even if an exception is raised.",
+      "candidates": {
+        "strong": "It opens a context manager that runs setup on entry and cleanup on exit, so the cleanup runs even when an exception is raised.",
+        "weak":   "It opens a file."
+      }
+    },
+    {
+      "id": "task_07",
+      "task": "What is the role of a transformer's attention mechanism?",
+      "gold": "Attention lets each token weigh and pull information from other tokens in the sequence, so the representation of any one token depends on the full context.",
+      "candidates": {
+        "strong": "Attention lets each token weigh and pull from other tokens, so its representation depends on the surrounding context.",
+        "weak":   "It pays attention."
+      }
+    },
+    {
+      "id": "task_08",
+      "task": "Why is overfitting a problem in machine learning?",
+      "gold": "An overfit model memorizes training data including noise, so it scores well in training but generalizes poorly to new data.",
+      "candidates": {
+        "strong": "Because the model memorizes the training noise, so it looks great on training data but fails on new examples.",
+        "weak":   "It is too good."
+      }
+    },
+    {
+      "id": "task_09",
+      "task": "In a retrieval-augmented generation pipeline, what is the retriever's job?",
+      "gold": "The retriever pulls a small set of relevant context chunks from a corpus given the user's query, so the generator can ground its answer in those chunks.",
+      "candidates": {
+        "strong": "It pulls the most relevant chunks from the corpus for the query, so the generator can ground its answer in them.",
+        "weak":   "It retrieves things."
+      }
+    },
+    {
+      "id": "task_10",
+      "task": "What is the chief difference between TCP and UDP?",
+      "gold": "TCP is connection-oriented and guarantees ordered, reliable delivery, while UDP is connectionless and trades reliability for lower latency and overhead.",
+      "candidates": {
+        "strong": "TCP is connection-oriented and reliable with ordered delivery, while UDP is connectionless and faster because it drops the reliability guarantees.",
+        "weak":   "TCP is older."
+      }
+    }
+  ],
+  "human_labels": [
+    {"id": "task_01_strong", "scores": {"faithfulness": 5.0, "completeness": 5.0, "reasoning": 4.0}},
+    {"id": "task_01_weak",   "scores": {"faithfulness": 0.0, "completeness": 1.0, "reasoning": 1.0}},
+    {"id": "task_02_strong", "scores": {"faithfulness": 5.0, "completeness": 4.0, "reasoning": 4.0}},
+    {"id": "task_02_weak",   "scores": {"faithfulness": 1.0, "completeness": 1.0, "reasoning": 1.0}},
+    {"id": "task_03_strong", "scores": {"faithfulness": 5.0, "completeness": 4.0, "reasoning": 3.0}},
+    {"id": "task_03_weak",   "scores": {"faithfulness": 0.0, "completeness": 0.0, "reasoning": 1.0}},
+    {"id": "task_04_strong", "scores": {"faithfulness": 5.0, "completeness": 5.0, "reasoning": 4.0}},
+    {"id": "task_04_weak",   "scores": {"faithfulness": 2.0, "completeness": 1.0, "reasoning": 1.0}},
+    {"id": "task_05_strong", "scores": {"faithfulness": 5.0, "completeness": 4.0, "reasoning": 4.0}},
+    {"id": "task_05_weak",   "scores": {"faithfulness": 3.0, "completeness": 2.0, "reasoning": 2.0}},
+    {"id": "task_06_strong", "scores": {"faithfulness": 5.0, "completeness": 5.0, "reasoning": 4.0}},
+    {"id": "task_06_weak",   "scores": {"faithfulness": 2.0, "completeness": 1.0, "reasoning": 1.0}},
+    {"id": "task_07_strong", "scores": {"faithfulness": 5.0, "completeness": 4.0, "reasoning": 4.0}},
+    {"id": "task_07_weak",   "scores": {"faithfulness": 1.0, "completeness": 1.0, "reasoning": 1.0}},
+    {"id": "task_08_strong", "scores": {"faithfulness": 5.0, "completeness": 4.0, "reasoning": 4.0}},
+    {"id": "task_08_weak",   "scores": {"faithfulness": 1.0, "completeness": 1.0, "reasoning": 1.0}},
+    {"id": "task_09_strong", "scores": {"faithfulness": 5.0, "completeness": 5.0, "reasoning": 4.0}},
+    {"id": "task_09_weak",   "scores": {"faithfulness": 2.0, "completeness": 1.0, "reasoning": 1.0}},
+    {"id": "task_10_strong", "scores": {"faithfulness": 5.0, "completeness": 5.0, "reasoning": 4.0}},
+    {"id": "task_10_weak",   "scores": {"faithfulness": 1.0, "completeness": 1.0, "reasoning": 1.0}}
+  ]
+}
