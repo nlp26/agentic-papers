@@ -12,7 +12,7 @@ agentic-papers/
   agent_as_judge/         rubric scoring + CoT + calibration
   agent_capsules/         quality-gated granularity control, with token+quality chart
   rag_gym/                process-supervised RAG — naive vs Re²Search, per-step scored
-  longmemeval_v2/         todo — environment-experience memory benchmark
+  longmemeval_v2/         environment-experience memory — Hindsight-style, scored per V2 ability category
   toolcua/                todo — GUI/Tool path orchestration for CUA
 ```
 

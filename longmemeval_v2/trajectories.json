@@ -1,0 +1,98 @@
+{
+  "environment": {
+    "name": "OrionDeploy",
+    "description": "Internal CLI for a fictional service mesh. Three services: orion-api (us-east-1, us-west-2, eu-west-1; team alpha), orion-worker (us-east-1, us-west-2; team beta), orion-dashboard (us-east-1; team gamma). CLI verbs: deploy, rollback, status, logs, vpn-pin, config, archive.",
+    "premises": [
+      "Routing is hardcoded in routing.yaml; the system predates service discovery as a goal.",
+      "Feature flags live in orion-flags, not exposed through the CLI at all.",
+      "Logs are stored 7 days unless archived via 'orion archive'."
+    ]
+  },
+  "trajectories": [
+    {
+      "id": "traj_01",
+      "title": "First eu-west-1 deploy attempt for orion-api",
+      "events": [
+        {"actor": "agent",  "text": "orion deploy orion-api eu-west-1 v2.4.0"},
+        {"actor": "system", "text": "deploy submitted; ERROR: auth failed; rolled back"},
+        {"actor": "agent",  "text": "orion logs orion-api eu-west-1 --tail 20"},
+        {"actor": "system", "text": "auth gateway: VPN unpinned for region eu-west-1"},
+        {"actor": "agent",  "text": "orion vpn-pin eu-west-1"},
+        {"actor": "system", "text": "VPN pinned to eu-west-1"},
+        {"actor": "agent",  "text": "orion deploy orion-api eu-west-1 v2.4.0"},
+        {"actor": "system", "text": "deploy submitted; SUCCESS; orion-api eu-west-1 now v2.4.0"}
+      ],
+      "learned_facts": [
+        {"tag": "gotcha",   "text": "orion-api deploys to eu-west-1 require 'orion vpn-pin eu-west-1' first; otherwise auth fails silently after the deploy is submitted."},
+        {"tag": "dynamic",  "text": "orion-api eu-west-1 deployed v2.4.0."},
+        {"tag": "workflow", "text": "Correct sequence for eu-west-1: orion vpn-pin eu-west-1 → orion deploy ..."}
+      ]
+    },
+    {
+      "id": "traj_02",
+      "title": "Worker version drift causes message drop",
+      "events": [
+        {"actor": "system", "text": "alert: orion-worker dropping messages in us-east-1 region"},
+        {"actor": "agent",  "text": "orion status orion-worker"},
+        {"actor": "system", "text": "orion-worker us-east-1 v2.6.0; us-west-2 v2.5.0"},
+        {"actor": "agent",  "text": "orion status orion-api"},
+        {"actor": "system", "text": "orion-api us-east-1 v2.4.0; us-west-2 v2.4.0; eu-west-1 v2.4.0"},
+        {"actor": "agent",  "text": "orion rollback orion-worker us-east-1"},
+        {"actor": "system", "text": "rollback to v2.5.0 complete; messages flowing"}
+      ],
+      "learned_facts": [
+        {"tag": "gotcha",   "text": "If orion-worker exceeds orion-api by more than 1 minor version, queue messages get dropped."},
+        {"tag": "workflow", "text": "Worker version must be ≤ orion-api version + 1 minor."},
+        {"tag": "dynamic",  "text": "orion-worker us-east-1 was rolled back from v2.6.0 to v2.5.0 to match orion-api v2.4.0."}
+      ]
+    },
+    {
+      "id": "traj_03",
+      "title": "Dashboard deploy fails outside the window",
+      "events": [
+        {"actor": "agent",  "text": "orion deploy orion-dashboard us-east-1 v1.9.0"},
+        {"actor": "system", "text": "deploy rejected: outside deploy window (allowed 00:00-04:00 UTC)"},
+        {"actor": "agent",  "text": "orion deploy orion-dashboard us-east-1 v1.9.0 --schedule 02:00"},
+        {"actor": "system", "text": "scheduled; will execute at 02:00 UTC"},
+        {"actor": "system", "text": "scheduled deploy SUCCESS at 02:14 UTC; v1.9.0"}
+      ],
+      "learned_facts": [
+        {"tag": "gotcha",   "text": "orion-dashboard can only be deployed during 00:00-04:00 UTC; outside that window the deploy is rejected."},
+        {"tag": "workflow", "text": "To deploy orion-dashboard outside the window, use --schedule with a time inside 00:00-04:00 UTC."},
+        {"tag": "dynamic",  "text": "orion-dashboard us-east-1 v1.9.0 deployed at 02:14 UTC."}
+      ]
+    },
+    {
+      "id": "traj_04",
+      "title": "Rollback that didn't roll back the config",
+      "events": [
+        {"actor": "agent",  "text": "orion rollback orion-api us-west-2"},
+        {"actor": "system", "text": "binary rolled back to v2.3.0"},
+        {"actor": "system", "text": "alert: orion-api us-west-2 still serving 502 on /v2/items"},
+        {"actor": "agent",  "text": "orion config diff orion-api us-west-2"},
+        {"actor": "system", "text": "config still at v2.4.0 schema; binary at v2.3.0"},
+        {"actor": "agent",  "text": "orion config restore orion-api us-west-2 v2.3.0"},
+        {"actor": "system", "text": "config restored; 502s clearing"}
+      ],
+      "learned_facts": [
+        {"tag": "gotcha",   "text": "orion rollback rolls back the binary only; config is left at the newer schema and can cause 5xx until 'orion config restore' is run."},
+        {"tag": "workflow", "text": "Full rollback = orion rollback <svc> <region> + orion config restore <svc> <region> <version>."}
+      ]
+    },
+    {
+      "id": "traj_05",
+      "title": "Asking about a feature flag the CLI can't toggle",
+      "events": [
+        {"actor": "agent",  "text": "orion flag set orion-api new_search=true us-east-1"},
+        {"actor": "system", "text": "unknown subcommand 'flag'; see 'orion help'"},
+        {"actor": "agent",  "text": "orion help"},
+        {"actor": "system", "text": "verbs: deploy rollback status logs vpn-pin config archive"},
+        {"actor": "system", "text": "note: feature flags are managed in orion-flags service, not via this CLI"}
+      ],
+      "learned_facts": [
+        {"tag": "premise",  "text": "Feature flag operations are not in the orion CLI. They live in the orion-flags service."},
+        {"tag": "premise",  "text": "orion-flags is shared across all services; toggling there affects orion-api, orion-worker, orion-dashboard."}
+      ]
+    }
+  ]
+}
