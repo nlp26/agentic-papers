@@ -1,0 +1,44 @@
+{
+  "docs": [
+    {
+      "id": "deepagents_v06",
+      "title": "deepagents 0.6.2",
+      "text": "deepagents 0.6.2 was released on May 18 2026 by LangChain. The release introduced first-class MCP support: tools can come either from custom Python functions or from MCP servers. Built-in primitives include planning loops, virtual filesystem memory, sub-agent delegation with isolated context, persistent memory across sessions, and human-in-the-loop tool approval. The public entry point is create_deep_agent(model, tools, system_prompt)."
+    },
+    {
+      "id": "agent_capsules",
+      "title": "Agent Capsules",
+      "text": "Agent Capsules (arXiv 2605.00410) is a runtime-adaptive wrapper for multi-agent pipelines. Against a hand-crafted LangGraph 14-agent competitive-intelligence pipeline it reports 51 percent fewer fine-mode input tokens and 42 percent fewer compound-mode input tokens while maintaining quality parity. The mechanism is quality-gated granularity control: each step receives only its declared inputs and a cheap gate escalates to full context on failure. The paper wraps existing frameworks rather than replacing them."
+    },
+    {
+      "id": "rag_gym",
+      "title": "RAG-Gym",
+      "text": "RAG-Gym (arXiv 2502.13957) is a unified framework that optimizes agentic RAG along three axes: prompt engineering, actor tuning, and critic training. It uses process supervision so the agent is rewarded for each intermediate decision (query rewrite, retrieval, reasoning step) rather than only the final answer. The paper introduces Re-Squared-Search, an agent architecture adding reasoning reflection on top of ReAct. On HotpotQA the ReAct F1 rises from 41.09 to 60.19, and gains up to 25.6 percent appear across four datasets."
+    },
+    {
+      "id": "fastmcp",
+      "title": "FastMCP",
+      "text": "FastMCP is a Pythonic framework for building Model Context Protocol servers. The current 2026 line decorates plain Python functions with @mcp.tool to expose them as MCP tools with automatically generated schemas. The default transport is stdio for child-process style integration; an HTTP transport variant is also supported and is the recommended path when the server needs to scale horizontally behind a load balancer. The MCP Inspector tool lists exposed tools and lets you invoke them interactively for debugging."
+    },
+    {
+      "id": "longmemeval_v2",
+      "title": "LongMemEval-V2",
+      "text": "LongMemEval-V2 (arXiv 2605.12493, May 12 2026) is the first dedicated benchmark for agent environment-experience memory. It contains 451 manually curated questions across five abilities: static state recall, dynamic state tracking, workflow knowledge, environment gotchas, and premise awareness. Trajectories are sourced from WebArena, WorkArena, and WorkArena++ with up to 500 trajectories and 115 million tokens of context. The original LongMemEval focused on user history; V2 shifts to whether memory systems help an agent become an experienced operator of a specific environment."
+    },
+    {
+      "id": "toolcua",
+      "title": "ToolCUA",
+      "text": "ToolCUA (arXiv 2605.12481) is a Computer Use Agent that achieves 46.85 percent on OSWorld-MCP, a 66 percent relative improvement over baseline at the same scale. It uses a staged training paradigm to learn when to choose atomic GUI actions like click and type and when to choose high-level tool or API calls. The orchestration of GUI vs tool paths is itself a learned decision rather than a hardcoded preference."
+    },
+    {
+      "id": "agent_as_judge_survey",
+      "title": "Agent-as-a-Judge survey",
+      "text": "The Agent-as-a-Judge survey (arXiv 2601.05111, January 2026) consolidates work on using agents to evaluate other agents. The newest direction adds planning, tool-augmented verification, multi-agent collaboration, and persistent memory to the judge itself rather than treating it as a single LLM call. Rubric-based evaluation with chain-of-thought scoring and bias calibration is now standard, and distilled evaluators can score 100 percent of production traffic at roughly 1 over 30 of the cost of the original judge."
+    },
+    {
+      "id": "mcp_code_execution",
+      "title": "Code Execution with MCP",
+      "text": "Anthropic published Code Execution with MCP in 2026 as a pattern for reducing agent cost and latency. Instead of loading every tool definition into the model context and making direct tool calls, the agent writes a small Python script that imports the MCP client and orchestrates the calls. This reduces context bloat from upfront tool definitions and from streaming intermediate tool results. The pattern works well alongside MCP elicitation and sampling primitives."
+    }
+  ]
+}

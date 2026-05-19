@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "id": "q1_capsules_reduction",
+      "question": "By how much do Agent Capsules reduce input tokens against a hand-crafted LangGraph 14-agent pipeline?",
+      "gold_answer": "51 percent fewer fine-mode input tokens and 42 percent fewer compound-mode input tokens, at quality parity.",
+      "gold_doc": "agent_capsules"
+    },
+    {
+      "id": "q2_deepagents_mcp",
+      "question": "Which deepagents release introduced first-class MCP support, and what is the public entry point of the package?",
+      "gold_answer": "deepagents 0.6.2, released May 18 2026, with create_deep_agent(model, tools, system_prompt) as the public entry point.",
+      "gold_doc": "deepagents_v06"
+    },
+    {
+      "id": "q3_re2search_addition",
+      "question": "What mechanism does Re-Squared-Search add on top of ReAct, and what is its measured impact on HotpotQA F1?",
+      "gold_answer": "It adds reasoning reflection. F1 on HotpotQA rises from 41.09 to 60.19 for the ReAct agent.",
+      "gold_doc": "rag_gym"
+    },
+    {
+      "id": "q4_fastmcp_transports",
+      "question": "Which transports does FastMCP support and which is recommended for horizontal scaling?",
+      "gold_answer": "FastMCP supports stdio and HTTP. HTTP is recommended when the server needs to scale horizontally behind a load balancer.",
+      "gold_doc": "fastmcp"
+    },
+    {
+      "id": "q5_lme_v2_difference",
+      "question": "What does LongMemEval-V2 measure that the original LongMemEval did not?",
+      "gold_answer": "V2 measures environment-experience memory (workflow, gotchas, state) for a specific environment, while V1 focused on user-history memory.",
+      "gold_doc": "longmemeval_v2"
+    },
+    {
+      "id": "q6_toolcua_score",
+      "question": "What is ToolCUA's reported accuracy on OSWorld-MCP and what does it learn that prior CUAs did not?",
+      "gold_answer": "46.85 percent on OSWorld-MCP. It learns when to use atomic GUI actions versus high-level tool or API calls, treating that choice as a learned decision.",
+      "gold_doc": "toolcua"
+    }
+  ]
+}
