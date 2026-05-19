@@ -10,8 +10,8 @@ Shared helpers live under `_common/` — anything reusable across papers (judge,
 agentic-papers/
   _common/                judge, providers, metrics
   agent_as_judge/         rubric scoring + CoT + calibration
+  agent_capsules/         quality-gated granularity control, with token+quality chart
   rag_gym/                todo — process-supervised RAG optimization
-  agent_capsules/         todo — token-reduction wrapper for crews/graphs
   longmemeval_v2/         todo — environment-experience memory benchmark
   toolcua/                todo — GUI/Tool path orchestration for CUA
 ```
